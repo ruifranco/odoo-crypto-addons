@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 from odoo import models
 
@@ -15,19 +14,21 @@ class AccountBankStatement(models.Model):
             if bank_id.crypto_provider != "kraken":
                 continue
 
-            bals = {"balance_start": 0, "balance_end_real": 0}
-            for bal in bals.keys():
-                line_id = statement.line_ids[0 if bal == "balance_start" else -1]
-                ts = int(datetime.fromordinal(line_id.date.toordinal()).timestamp())
-
-                if bal == "balance_end_real":
-                    ts += 86400  # 1 day
-
-                input_ids = line_id.crypto_transaction_id.transaction_id.input_ids
+            min_ts = float("inf")
+            max_ts = 0
+            for line in statement.line_ids:
+                input_ids = line.crypto_transaction_id.transaction_id.input_ids
                 if not input_ids:
                     continue
-                data = json.loads(input_ids[0].raw)
+                data = json.loads(input_ids[0].raw)[1]
+                ts = float(data.get("time", 0))
+                if ts < min_ts:
+                    min_ts = ts
+                    balance_start = (
+                        float(data.get("balance", 0)) - float(data.get("amount", 0)) + float(data.get("fee", 0))
+                    )
+                if ts > max_ts:
+                    max_ts = ts
+                    balance_end_real = float(data.get("balance", 0))
 
-                bals[bal] = float(data[1]["balance"])
-
-            statement.write({**bals})
+            statement.write({"balance_start": balance_start, "balance_end_real": balance_end_real})
