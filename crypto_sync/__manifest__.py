@@ -14,7 +14,7 @@ Base module for syncing cryptocurrency transactions in Odoo
     "data": [
         "security/ir.model.access.csv",
         "views/account_bank_statement.xml",
-        "views/account_bank_statement_line.xml",
+        #"views/account_bank_statement_line.xml",
         "views/crypto_transaction.xml",
         "views/crypto_transaction_detail.xml",
         "views/res_partner_bank.xml",

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!--
     <record id="view_account_bank_statement_form_crypto" model="ir.ui.view">
         <field name="name">account.bank.statement.form.crypto</field>
         <field name="model">account.bank.statement</field>
@@ -27,6 +28,7 @@
             </xpath>
         </field>
     </record>
+-->
     <record id="action_account_bank_statement" model="ir.actions.act_window">
         <field name="type">ir.actions.act_window</field>
         <field name="name">Crypto Statements</field>
