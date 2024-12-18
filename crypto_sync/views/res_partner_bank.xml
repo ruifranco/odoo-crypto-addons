@@ -6,9 +6,8 @@
         <field name="inherit_id" ref="base.view_partner_bank_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
-                <group groups="crypto_kit.group_crypto"
-                       attrs="{'invisible': [('crypto_provider', '=', False)]}">
-                    <group>
+                <group groups="crypto_kit.group_crypto">
+                    <group attrs="{'invisible': [('crypto_provider', '=', False)]}">
                         <field name="crypto_provider"/>
                         <field name="crypto_auto_sync"/>
                         <field name="crypto_sync_done" groups="base.group_no_one"/>

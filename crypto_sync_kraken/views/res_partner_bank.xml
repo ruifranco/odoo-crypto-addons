@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="base.view_partner_bank_form"/>
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
-                <group attrs="{'invisible': [('crypto_provider', '!=', 'kraken')]}">
+                <group groups="crypto_kit.group_crypto" attrs="{'invisible': [('crypto_provider', '!=', 'kraken')]}">
                     <group>
                         <field name="kraken_api_key" password="True"/>
                         <field name="kraken_api_sec" password="True"/>
